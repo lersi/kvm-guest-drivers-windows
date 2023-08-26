@@ -1,0 +1,26 @@
+name: Build
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: cmd
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: build
+      run: |
+        ${{github.workspace}}\build_AllNoSdv.bat Win10 && ${{github.workspace}}\Tools\signAll.bat
+    - name: store-artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: windows-drivers
+        path: ./**/Install/*
+        retention-days: 7
