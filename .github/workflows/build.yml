@@ -16,7 +16,8 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: build
-      run: ${{github.workspace}}\buildAll.bat
+      run: |
+        ${{github.workspace}}\build_AllNoSdv.bat Win10 && ${{github.workspace}}\Tools\signAll.bat
     - name: store-artifacts
       uses: actions/upload-artifact@v3
       with:
